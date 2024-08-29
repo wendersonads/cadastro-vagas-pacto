@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,5 +28,6 @@ public class Vaga {
     private String descricao;
 
     @ManyToMany(mappedBy = "vagas")
+    @JsonIgnore
     private List<Account> candidatos;
 }

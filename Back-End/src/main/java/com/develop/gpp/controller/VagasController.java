@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.develop.gpp.domain.entity.Vaga;
+import com.develop.gpp.domain.entity.dto.VagaAccountDTO;
 import com.develop.gpp.domain.service.VagasService;
 
 import java.util.List;
@@ -39,5 +40,11 @@ public class VagasController {
     @PostMapping("/cadastrar/{vagaId}/{accountId}")
     public ResponseEntity<String> cadastrarNaVaga(@PathVariable Integer vagaId, @PathVariable Long accountId) {
         return vagasService.cadastrarNaVaga(accountId, vagaId);
+    }
+
+    @GetMapping("/vagas/candidatos")
+    public ResponseEntity<List<VagaAccountDTO>> getVagasComCandidatos() {
+     List<VagaAccountDTO> vagasComCandidatos = vagasService.getVagasComCandidatos();
+      return ResponseEntity.ok(vagasComCandidatos);
     }
 }

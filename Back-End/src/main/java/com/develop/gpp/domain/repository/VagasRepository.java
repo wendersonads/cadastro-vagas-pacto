@@ -2,7 +2,6 @@ package com.develop.gpp.domain.repository;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import com.develop.gpp.domain.entity.Vaga;
 
@@ -13,7 +12,6 @@ public interface VagasRepository extends JpaRepository<Vaga, Integer>{
               + "FROM VAGAS V"
               + "LEFT JOIN ACCOUNT_VAGAS AV ON AV.VAGA_ID = V.ID"
               + "LEFT JOIN ACCOUNT AC ON AC.ID = AV.ACCOUNT_ID"
-              + "WHERE V.ID = :idVaga"
               ,nativeQuery = true)   
- List<Object[]> vagasUsuarios(@Param("idVaga") Integer idVaga);
+ List<Object[]> vagasUsuarios();
 }

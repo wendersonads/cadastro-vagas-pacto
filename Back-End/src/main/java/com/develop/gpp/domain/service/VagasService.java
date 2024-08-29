@@ -1,7 +1,6 @@
 package com.develop.gpp.domain.service;
 
-import java.util.List;
-
+import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +10,8 @@ import java.util.Optional;
 
 import com.develop.gpp.domain.entity.Account;
 import com.develop.gpp.domain.entity.Vaga;
+import com.develop.gpp.domain.entity.dto.AccountVagaDTO;
+import com.develop.gpp.domain.entity.dto.VagaAccountDTO;
 import com.develop.gpp.domain.repository.AccountRepository;
 import com.develop.gpp.domain.repository.VagasRepository;
 
@@ -98,6 +99,32 @@ public class VagasService {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conta ou Vaga não encontrada!");
         }
+    }
+
+    public List<VagaAccountDTO> getVagasComCandidatos() {
+        List<Object[]> resultados =  vagasRepository.vagasUsuarios();
+        
+        Map<Integer, VagaAccountDTO> vagasMap = new HashMap<>();
+        
+        for (Object[] resultado : resultados) {
+            Integer idVagaResult = (Integer) resultado[0];  
+            String descricaoVaga = (String) resultado[1];   
+            String tituloVaga = (String) resultado[2];      
+            String nomeUsuario = (String) resultado[3];     
+            
+            VagaAccountDTO vaga = vagasMap.get(idVagaResult);
+            
+            if (vaga == null) {
+                vaga = new VagaAccountDTO(idVagaResult, descricaoVaga, tituloVaga, new ArrayList<>());
+                vagasMap.put(idVagaResult, vaga);
+            }
+            
+            if (nomeUsuario != null) {
+                vaga.getCadidatos().add(new AccountVagaDTO(nomeUsuario));
+            }
+        }
+    
+        return new ArrayList<>(vagasMap.values());
     }
 }
 
