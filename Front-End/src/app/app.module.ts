@@ -7,6 +7,7 @@ import { LoginService } from './service/login.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home/home.component';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [
     provideClientHydration(),

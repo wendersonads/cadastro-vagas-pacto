@@ -1,16 +1,19 @@
 package com.develop.gpp.domain.service;
 
+import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.develop.gpp.domain.entity.Account;
+import com.develop.gpp.domain.entity.PerfilUsuario;
+import com.develop.gpp.domain.entity.Vaga;
 import com.develop.gpp.domain.entity.dto.LoginDTO;
 import com.develop.gpp.domain.entity.dto.RegisterDTO;
 import com.develop.gpp.domain.repository.AccountRepository;
+import com.develop.gpp.domain.repository.PerfilRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,26 +23,39 @@ public class AccountService {
 
     @Autowired
     private AccountRepository repository;
-    
+
+    @Autowired
+    private PerfilRepository perfilRepository;
+
+    public ResponseEntity<List<Account>> todasContas() {
+        List<Account> accounts = repository.findAll();
+        return ResponseEntity.ok(accounts);
+    }
+
     public ResponseEntity<Account> register(RegisterDTO dto) {
         existsByUsername(dto.getUsername());
-        Account novoUser =  new Account();
+        Account novoUser = new Account();
+        PerfilUsuario perfil = perfilRepository.findById(2L).get();
         if (dto != null) {
             if (dto.getName() == null || dto.getName().isEmpty()) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nome é obrigatório!");
-            }else if(dto.getUsername() == null || dto.getUsername().isEmpty()) {
+            } else if (dto.getUsername() == null || dto.getUsername().isEmpty()) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário é obrigatório!");
-            }else if(dto.getPassword() == null || dto.getPassword().isEmpty()) {
+            } else if (dto.getPassword() == null || dto.getPassword().isEmpty()) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Senha é obrigatória!");
             }
         }
         novoUser.setName(dto.getName());
-        novoUser.setAtivo(1);//- 1 Sim,2-Não;
+        novoUser.setAtivo(1);// - 1 Sim,2-Não;
         novoUser.setPassword(dto.getPassword());
         novoUser.setUsername(dto.getUsername());
-        novoUser.setPerfilUsuario(null);
+        if (perfil != null) {
+            novoUser.setPerfilUsuario(perfil);
+        } else {
+            novoUser.setPerfilUsuario(null);
+        }
         repository.save(novoUser);
-        return new ResponseEntity<Account>(novoUser,HttpStatus.CREATED);
+        return new ResponseEntity<Account>(novoUser, HttpStatus.CREATED);
     }
 
     public Account getByLogin(LoginDTO dto) {

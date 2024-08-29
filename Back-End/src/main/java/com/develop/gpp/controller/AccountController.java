@@ -1,7 +1,10 @@
 package com.develop.gpp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,5 +24,10 @@ public class AccountController {
     @PostMapping("register")
     public ResponseEntity<Account> register(@RequestBody RegisterDTO dto) {
         return service.register(dto);
+    }
+
+    @GetMapping("api/contas")
+    public ResponseEntity<List<Account>> todasContas() {
+        return service.todasContas();
     }
 }

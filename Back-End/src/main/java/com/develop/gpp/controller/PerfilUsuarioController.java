@@ -16,7 +16,7 @@ import com.develop.gpp.domain.entity.dto.LoginDTO;
 import com.develop.gpp.domain.service.PerfilUsuarioService;
 
 @RestController
-@RequestMapping("/perfil")
+@RequestMapping("/api/perfil")
 public class PerfilUsuarioController {
 
     @Autowired

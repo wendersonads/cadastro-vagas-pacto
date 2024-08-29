@@ -19,7 +19,22 @@ body {
     background: var(--surface-card);
     padding: 2rem;
     border-radius: 10px;
-    max-width: 800px;
+    max-width: 400px; /* Reduz a largura máxima para 400px */
     width: 100%;
+    text-align: center; /* Centraliza o conteúdo */
 }
-  
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os inputs horizontalmente */
+}
+
+p-floatLabel {
+    width: 100%; /* Garante que os labels e inputs ocupem toda a largura disponível */
+    max-width: 300px; /* Define um tamanho máximo para os inputs */
+}
+
+p-floatLabel input {
+    width: 100%; /* Faz os inputs ocuparem toda a largura do p-floatLabel */
+}

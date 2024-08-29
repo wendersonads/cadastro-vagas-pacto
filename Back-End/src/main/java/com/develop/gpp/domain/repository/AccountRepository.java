@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.develop.gpp.domain.entity.Account;
+import com.develop.gpp.domain.entity.Vaga;
 import com.develop.gpp.domain.entity.dto.AccountDTO;
 
 @Repository
@@ -24,6 +25,10 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
             + "LEFT JOIN f.subFuncionalidades sf "
             + "WHERE a.username = :username")
     List<AccountDTO> buscarAccountDTO(@Param("username") String username);
+
+
+    List<Account> findByVagasContains(Vaga vaga);
+
 
     // pu.descricao, f.idFuncionalidade, f.nome, f.icone, f.situacao, sf.idSubfuncionalidade, sf.nome, sf.rota, sf.situacao
 
