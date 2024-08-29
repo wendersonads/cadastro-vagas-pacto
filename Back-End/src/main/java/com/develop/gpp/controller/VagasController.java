@@ -42,7 +42,7 @@ public class VagasController {
         return vagasService.cadastrarNaVaga(accountId, vagaId);
     }
 
-    @GetMapping("/vagas/candidatos")
+    @GetMapping("/candidatos")
     public ResponseEntity<List<VagaAccountDTO>> getVagasComCandidatos() {
      List<VagaAccountDTO> vagasComCandidatos = vagasService.getVagasComCandidatos();
       return ResponseEntity.ok(vagasComCandidatos);

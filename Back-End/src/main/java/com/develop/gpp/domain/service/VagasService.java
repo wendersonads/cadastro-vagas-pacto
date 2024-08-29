@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
-
 import com.develop.gpp.domain.entity.Account;
 import com.develop.gpp.domain.entity.Vaga;
 import com.develop.gpp.domain.entity.dto.AccountVagaDTO;

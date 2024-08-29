@@ -1,5 +1,6 @@
 package com.develop.gpp.domain.service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +41,7 @@ public class PerfilUsuarioService {
         for (Object[] row : resultados) {
             if (nomeUsuario == null) {
                 nomeUsuario = (String) row[0]; 
-                idPerfilUsuario = (Long) row[1]; 
+                idPerfilUsuario = ((BigInteger) row[1]).longValue();
                 descricaoPerfil = (String) row[2]; 
             }
     

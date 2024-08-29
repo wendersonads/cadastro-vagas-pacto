@@ -22,8 +22,8 @@ public class PerfilUsuarioController {
     @Autowired
     private final PerfilUsuarioService service = new PerfilUsuarioService();
 
-    @GetMapping("/user")
-    public AccountDTO getUser(@RequestParam String username) {
+    @GetMapping("/user/{username}")
+    public AccountDTO getUser(@PathVariable String username) {
         return service.getUser(username);
     }
 
