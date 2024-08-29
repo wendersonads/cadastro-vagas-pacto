@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.develop.gpp.domain.entity.Account;
 import com.develop.gpp.domain.entity.Vaga;
-import com.develop.gpp.domain.entity.dto.AccountDTO;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {

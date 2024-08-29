@@ -23,7 +23,7 @@ public class PerfilUsuarioController {
     private final PerfilUsuarioService service = new PerfilUsuarioService();
 
     @GetMapping("/user")
-    public List<AccountDTO> getUser(@RequestParam String username) {
+    public AccountDTO getUser(@RequestParam String username) {
         return service.getUser(username);
     }
 
