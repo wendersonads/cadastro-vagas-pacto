@@ -1,5 +1,6 @@
 package com.develop.gpp.domain.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.develop.gpp.domain.entity.Account;
 import com.develop.gpp.domain.entity.PerfilUsuario;
 import com.develop.gpp.domain.entity.dto.AccountDTO;
 import com.develop.gpp.domain.entity.dto.LoginDTO;
+import com.develop.gpp.domain.entity.dto.VagaDTO;
 import com.develop.gpp.domain.repository.AccountRepository;
 import com.develop.gpp.domain.repository.PerfilRepository;
 
@@ -22,15 +24,34 @@ public class PerfilUsuarioService {
     @Autowired
     private PerfilRepository perfilRepository;
 
-    public List<AccountDTO> getUser(String username) {
-        List<AccountDTO> user = repository.buscarAccountDTO(username);
+    public AccountDTO getUser(String username) {
         System.out.println(username);
-        if (user.isEmpty()) {
+        List<Object[]> userVagas = repository.buscarAccountDTO(username);
+        AccountDTO account = montarAccountComVagas(userVagas);
+        return account;
+    }
 
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário não encontrado!");
-
+    private AccountDTO montarAccountComVagas(List<Object[]> resultados) {
+        String nomeUsuario = null;
+        Long idPerfilUsuario = null;
+        String descricaoPerfil = null;
+        List<VagaDTO> vagas = new ArrayList<>();
+    
+        for (Object[] row : resultados) {
+            if (nomeUsuario == null) {
+                nomeUsuario = (String) row[0]; 
+                idPerfilUsuario = (Long) row[1]; 
+                descricaoPerfil = (String) row[2]; 
+            }
+    
+            Integer idVaga = (Integer) row[3];
+            String descricaoVaga = (String) row[4];
+            String tituloVaga = (String) row[5];
+    
+            vagas.add(new VagaDTO(idVaga, descricaoVaga, tituloVaga));
         }
-        return user;
+    
+        return new AccountDTO(nomeUsuario, idPerfilUsuario, descricaoPerfil, vagas);
     }
 
     public Account vincularPerfil(LoginDTO dto, Long id) {

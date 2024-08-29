@@ -17,14 +17,15 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     Optional<Account> findByUsername(String username);
 
-    @Query("SELECT new com.develop.gpp.domain.entity.dto.AccountDTO(pu.descricao, f.nome, f.icone, sf.nome, sf.rota )"
-            + "FROM Account a "
-            + "LEFT JOIN a.perfilUsuario pu "
-            + "LEFT JOIN pu.perfilUsuarioFuncionalidades puf "
-            + "LEFT JOIN puf.funcionalidade f "
-            + "LEFT JOIN f.subFuncionalidades sf "
-            + "WHERE a.username = :username")
-    List<AccountDTO> buscarAccountDTO(@Param("username") String username);
+    @Query(value = "SELECT A.NAME AS NOME_USUARIO, PF.ID_PERFIL_USUARIO, PF.DESCRICAO AS DESCRICAO_PERFIL, "
+                 + "V.ID AS ID_VAGA, V.DESCRICAO AS DESCRICAO_VAGA, V.TITULO AS TITULO_VAGA "   
+                 + "FROM ACCOUNT A "
+                 + "LEFT JOIN PERFIL_USUARIO PF ON PF.ID_PERFIL_USUARIO = A.ID_PERFIL_USUARIO "
+                 + "LEFT JOIN ACCOUNT_VAGAS AV ON AV.ACCOUNT_ID = A.ID "
+                 + "LEFT JOIN VAGAS V ON V.ID = AV.VAGA_ID "
+                 + "WHERE A.USERNAME = :username", nativeQuery = true)
+   List<Object[]> buscarAccountDTO(@Param("username") String username);
+
 
 
     List<Account> findByVagasContains(Vaga vaga);
