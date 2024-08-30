@@ -1,20 +1,19 @@
-
 <div class="card">
     <div class="form-container">
-        <img src="assets/logo_pacto_solucoes.png" alt="">
-        <br>
-        <p-floatLabel >
-            <label for="username">Username</label>
-            <input id="username" type="text"/>
-        </p-floatLabel>
-        <div style="height: 15px;">
-    
+        <img src="assets/logo_pacto_solucoes.png" width="80%" height="150px" alt="">
+        <span class="p-float-label">
+            <input pInputText id="username" />
+            <label htmlFor="username">Usuário</label>
+        </span>
+        <div style="height: 30px;">
         </div>
-        <p-floatLabel >
-            <label for="password">Password</label>
-            <input id="password" type="password"/>
-        </p-floatLabel>
+        <span class="p-float-label">
+            <input type="password" pInputText id="username" />
+            <label htmlFor="password">Senha</label>
+        </span>
+        <br>
+        <p-button label="ENTRAR" [loading]="loading" (click)="load()" styleClass="p-button-sm button"></p-button>
+        <br>
+        <p-button label="CADASTRAR" styleClass="p-button-outlined p-button-sm button"></p-button>
     </div>
 </div>
-
-

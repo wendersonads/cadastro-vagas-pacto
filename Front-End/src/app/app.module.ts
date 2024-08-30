@@ -1,29 +1,94 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 
+registerLocaleData(localePt);
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import 'eva-icons';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginService } from './service/login.service';
-import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './components/home/home/home.component';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { NbButtonModule, NbCardModule, NbCheckboxModule, NbInputModule, NbLayoutModule, NbMenuModule, NbSelectModule, NbSidebarModule, NbThemeModule } from '@nebular/theme';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { DockModule } from 'primeng/dock';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import {DialogModule} from 'primeng/dialog';
+import {InputTextModule} from 'primeng/inputtext';
+import {CheckboxModule} from 'primeng/checkbox';
+import {DropdownModule} from 'primeng/dropdown';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { MessageModule } from 'primeng/message';
+import { MessageService } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { MessagesModule } from 'primeng/messages';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ListboxModule } from 'primeng/listbox';
+import { FieldsetModule } from 'primeng/fieldset';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { PasswordModule } from 'primeng/password';
 
+import { LoginComponent } from './components/login/login.component';
+
+registerLocaleData(localePt);
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    LoginComponent
+
   ],
   imports: [
+    FieldsetModule,
+    ListboxModule,
+    MessagesModule,
+    MessageModule,
+    AutoCompleteModule,
+    DialogModule,
+    ButtonModule,
+    InputTextModule,
+    CheckboxModule,
+    DropdownModule,
+    PanelMenuModule,
+    RadioButtonModule,
+    DockModule,
+    TableModule,
+    ButtonModule,
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    NbThemeModule.forRoot(),
+    NbLayoutModule,
+    NbSidebarModule.forRoot(),
+    NbButtonModule,
+    NbInputModule,
+    Ng2SmartTableModule,
+    NbCheckboxModule,
+    NbMenuModule.forRoot(),
+    NbCardModule,
+    BrowserAnimationsModule,
+    NbEvaIconsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    NbSelectModule,
+    ReactiveFormsModule,
+    ConfirmDialogModule,
+    ToastModule,
+    InputMaskModule,
+    InputNumberModule,
+    PasswordModule
   ],
-  providers: [
-    provideClientHydration(),
-    LoginService
-  ],
+  providers: [MessageService, DialogService],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule { }

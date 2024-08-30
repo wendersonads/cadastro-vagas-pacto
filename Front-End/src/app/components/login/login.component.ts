@@ -1,14 +1,19 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
-  standalone: true,
-  imports: [FloatLabelModule],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./login.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class LoginComponent {
+  public loading: boolean = false;
   constructor(){}
+
+  load() {
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+    }, 500);
+  }
 }
