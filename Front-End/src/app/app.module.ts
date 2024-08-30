@@ -73,7 +73,6 @@ registerLocaleData(localePt);
     NbSidebarModule.forRoot(),
     NbButtonModule,
     NbInputModule,
-    Ng2SmartTableModule,
     NbCheckboxModule,
     NbMenuModule.forRoot(),
     NbCardModule,

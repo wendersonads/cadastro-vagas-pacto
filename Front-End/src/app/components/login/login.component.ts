@@ -1,4 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
+import { Message } from 'primeng/api';
+import { KEY_TOKEN } from 'src/app/models/keysStorage';
+import { Oauth } from 'src/app/models/Oauth';
+import { OauthService } from 'src/app/service/oauth.service';
+import { UtilsService } from 'src/app/utils/utils.service';
 
 @Component({
   selector: 'app-login',
@@ -7,13 +14,26 @@ import { Component, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class LoginComponent {
+  public username: string = '';
+  public password: string = '';
   public loading: boolean = false;
-  constructor(){}
+  public messages: Message[] = [];
 
-  load() {
+  constructor(private oAuth: OauthService, private route: Router, private utils: UtilsService){}
+
+  public async logar() {
     this.loading = true;
-    setTimeout(() => {
+    const oAuth: Oauth = {username: this.username, password: this.password};
+    await this.oAuth.logar(oAuth).then((dadosUser) => {
+      if (dadosUser) {
+        localStorage.setItem(KEY_TOKEN, JSON.stringify(oAuth));
+        this.route.navigate(['/home']);
+      }
       this.loading = false;
-    }, 500);
+    }).catch((error: HttpErrorResponse) => {
+      console.error('Erro ao logar: ', error.message);
+      this.loading = false;
+      this.messages = this.utils.messageError(error);
+    });
   }
 }
