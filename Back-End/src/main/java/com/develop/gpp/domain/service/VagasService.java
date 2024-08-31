@@ -88,7 +88,7 @@ public class VagasService {
             Vaga vaga = vagaOpt.get();
 
             if (account.getVagas().contains(vaga)) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já está cadastrado nessa vaga!");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Candidato já está cadastrado nessa vaga!");
             }
 
             account.getVagas().add(vaga);

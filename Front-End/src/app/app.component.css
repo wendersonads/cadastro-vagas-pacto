@@ -1,4 +1,13 @@
 .img-menu {
     width: 50%;
     height: 50%
-}
+}  
+  .btn-cadastrar {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  
+  .card {
+    margin-top: 60px; /* Ajuste para garantir que a tabela não fique sobre o botão */
+    margin: 10px;
+  }

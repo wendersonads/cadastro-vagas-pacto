@@ -1,10 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { UtilsService } from "./utils/utils.service";
 import { Token } from "./models/Oauth";
 import { NavigationEnd, Router } from "@angular/router";
 import { ChangeDetectorRef } from '@angular/core';
 import { KEY_TOKEN } from "./models/keysStorage";
+import { VagasService } from "./service/vagas.service";
+import { Vagas } from "./models/vagas";
 
 
 @Component({
@@ -14,14 +16,18 @@ import { KEY_TOKEN } from "./models/keysStorage";
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit{
   items: MenuItem[] = [];
   public usernameAndToken: Token | null = null;
   public vValidaMenu: boolean;
+  public vagas: Vagas[] = [];
+  public admin: boolean = true;
+  
 
-  constructor(private utils: UtilsService, private router: Router,private cdr: ChangeDetectorRef) {
+  constructor(private utils: UtilsService, private router: Router,private cdr: ChangeDetectorRef, private vagasService: VagasService) {
     this.vValidaMenu = true;
     this.usernameAndToken = utils.getUsernameAndToken();
+    this.admin = true;
     this.items = [
       {
         label: "Vagas",
@@ -69,16 +75,31 @@ export class AppComponent implements OnInit {
     });
      const vValidaToken = this.usernameAndToken !== null ? 
          this.usernameAndToken.token !== null && this.usernameAndToken.token !== '' : false;
-         if (!vValidaToken) {
-          this.router.navigate(["/login"]);
-         }
+    if (!vValidaToken) {
+      this.router.navigate(["/login"]);
+    }
+  }
+  async ngAfterViewInit(): Promise<void> {
+    await this.listarVagas();
   }
   ngOnInit() {
-   
+
   }
 
   public sair() {
     localStorage.removeItem(KEY_TOKEN);
     this.router.navigate(["/login"]);
+  }
+
+  public async listarVagas(): Promise<void>{
+    try {
+      const vagasService = await this.vagasService.listarVagas();
+      if (vagasService !== undefined) {
+        this.vagas = vagasService;
+        this.cdr.detectChanges(); 
+      }
+    } catch (error) {
+      console.error("Erro ao listar vagas: ", error);
+    }
   }
 }

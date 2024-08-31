@@ -52,7 +52,7 @@ export class UtilsService {
      }
   }
 
-  private getAuthHeaders(): HttpHeaders {
+  public getHeaders(): HttpHeaders {
     const tokenData = this.getUsernameAndToken();
     let headers = new HttpHeaders();
 
