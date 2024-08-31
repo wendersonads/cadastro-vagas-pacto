@@ -1,1 +1,22 @@
-<p>cadastro works!</p>
+<div class="card">
+    <div class="form-container">
+        <img src="assets/logo_pacto_solucoes.png" width="80%" height="150px" alt="">
+        <span class="p-float-label">
+            <input pInputText id="name" [(ngModel)]="name"/>
+            <label htmlFor="name">Nome</label>
+        </span>
+        <span class="p-float-label">
+            <input pInputText id="username" [(ngModel)]="username"/>
+            <label htmlFor="username">Usuário</label>
+        </span>
+        <span class="p-float-label">
+            <input type="password" pInputText id="password" [(ngModel)]="password"/>
+            <label htmlFor="password">Senha</label>
+        </span>
+
+        <p-button label="CADASTRAR" (click)="cadastrar()"styleClass="p-button-sm button"></p-button>
+    </div>
+</div>
+
+<p-toast position="top-center"></p-toast>
+

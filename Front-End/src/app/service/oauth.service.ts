@@ -16,8 +16,24 @@ export class OauthService {
           if (token) {
             resolve(token);
           }
-        },(error: HttpErrorResponse) => {
-          resolve(error);
+        },
+        (error: HttpErrorResponse) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
+  public async cadastrar(user: Oauth): Promise<Oauth | HttpErrorResponse> {
+    return new Promise<Oauth | HttpErrorResponse>((resolve, reject) => {
+      this.http.post<Oauth>(API_URL + "/register", user).subscribe(
+        (dadosUser: Oauth) => {
+          if (dadosUser) {
+            resolve(dadosUser);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          reject(error);
         }
       );
     });

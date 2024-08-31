@@ -32,6 +32,7 @@ body {
 
 .p-float-label {
     width: 80%;
+    margin-bottom: 25px;
 }
 
 .p-float-label input {
