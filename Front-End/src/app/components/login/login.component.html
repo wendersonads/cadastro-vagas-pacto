@@ -1,17 +1,20 @@
-<div class="card">
-    <div class="form-container">
-        <img src="assets/logo_pacto_solucoes.png" width="80%" height="150px" alt="">
-        <span class="p-float-label">
-            <input pInputText id="username" [(ngModel)]="username"/>
-            <label htmlFor="username">Usuário</label>
-        </span>
-        <span class="p-float-label">
-            <input type="password" pInputText id="password" [(ngModel)]="password"/>
-            <label htmlFor="password">Senha</label>
-        </span>
-        <p-button label="ENTRAR" [loading]="loading" (click)="logar()" styleClass="p-button-sm button"></p-button>
-        <br>
-        <p-button label="CADASTRAR" (click)="direcionarTelaCadastro()"styleClass="p-button-outlined p-button-sm button"></p-button>
+<div class="login-container">
+    <div class="card">
+        <div class="form-container">
+            <img class="img-login" src="assets/logo_pacto_solucoes.png" alt="">
+            <span class="p-float-label">
+                <input pInputText id="username" [(ngModel)]="username" />
+                <label htmlFor="username">Usuário</label>
+            </span>
+            <span class="p-float-label">
+                <input type="password" pInputText id="password" [(ngModel)]="password" />
+                <label htmlFor="password">Senha</label>
+            </span>
+            <p-button label="ENTRAR" [loading]="loading" (click)="logar()" styleClass="p-button-sm button"></p-button>
+            <br>
+            <p-button label="CADASTRAR" (click)="direcionarTelaCadastro()"
+                styleClass="p-button-outlined p-button-sm button"></p-button>
+        </div>
     </div>
 </div>
 

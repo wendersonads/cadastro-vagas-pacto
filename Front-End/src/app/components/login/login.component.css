@@ -1,8 +1,4 @@
-html {
-    font-size: 14px;
-}
-
-body {
+.login-container {
     font-family: var(--font-family);
     font-weight: normal;
     /* background: rgb(16, 16, 230); */
@@ -43,6 +39,8 @@ body {
     width: 100%;
 }
 
-img {
+.img-login {
     padding-bottom: 20px;
+    width: 80%; 
+    height: 150px;
 }

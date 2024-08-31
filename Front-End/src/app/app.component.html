@@ -1,10 +1,10 @@
-<p-menubar [model]="items" [style]="{'background-color':'#ffffff'}">
+<p-menubar *ngIf="vValidaMenu" [model]="items" [style]="{'background-color':'#ffffff'}">
   <ng-template pTemplate="start">
-      <img src="assets/logo_pacto_solucoes.png" height="40" class="mr-2" />
+      <img src="assets/logo_pacto_solucoes.png" class="mr-2 img-menu" />
   </ng-template>
   <ng-template pTemplate="end">
     <p-avatar icon="pi pi-user" styleClass="mr-2" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" size="large" shape="circle"></p-avatar>
-    <strong>{{usernameAndToken?.username}}</strong>
+    <!-- <strong styleClass="mr-2">{{usernameAndToken?.username}}</strong> -->
   </ng-template>
 </p-menubar>
 <router-outlet></router-outlet>

@@ -1,15 +1,18 @@
-import { HttpErrorResponse } from "@angular/common/http";
+import { HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { MessageService } from "primeng/api";
 import { Token } from "../models/Oauth";
 import { KEY_TOKEN } from "../models/keysStorage";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class UtilsService {
   public usernameAndToken: Token | null = null;
+  private userDataSubject = new BehaviorSubject<Token | null>(this.getUsernameAndToken());
 
+  public userData$ = this.userDataSubject.asObservable();
   constructor(private messageService: MessageService) {}
 
   public async messageError(errorApi?: HttpErrorResponse) {
@@ -40,5 +43,23 @@ export class UtilsService {
       this.usernameAndToken = null;
     }
     return this.usernameAndToken;
+  }
+
+  public setUsernameAndToken(token: Token): void {
+     if (token !== null) {
+      localStorage.setItem(KEY_TOKEN, JSON.stringify(token));
+      this.userDataSubject.next(token);
+     }
+  }
+
+  private getAuthHeaders(): HttpHeaders {
+    const tokenData = this.getUsernameAndToken();
+    let headers = new HttpHeaders();
+
+    if (tokenData) {
+      headers = headers.set('token', `${tokenData.token}`);
+    }
+
+    return headers;
   }
 }

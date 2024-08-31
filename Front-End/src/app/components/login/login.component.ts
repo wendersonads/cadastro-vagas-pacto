@@ -35,8 +35,8 @@ export class LoginComponent {
             username: this.username,
             token: dadosUser.token,
           };
-          localStorage.setItem(KEY_TOKEN, JSON.stringify(userData));
-          this.route.navigate(["/cadastro"]);
+          this.utils.setUsernameAndToken(userData);
+          this.route.navigate(["/"]);
         }
         this.loading = false;
       })
