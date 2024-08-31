@@ -1,13 +1,10 @@
-<!--   
-  <img src="assets/icons/logo2.png" alt="Minha imagem" style="margin-top:-145px;margin-left: -95px; margin-bottom: -170px;">
-</div>
-
-<div class="p-card p-d-flex p-jc-end">
-  <div class="p-panelMenu-wrapper">
-    <app-menu></app-menu>
-  </div> -->
-
-    <router-outlet></router-outlet>
-
-
-
+<p-menubar [model]="items" [style]="{'background-color':'#ffffff'}">
+  <ng-template pTemplate="start">
+      <img src="assets/logo_pacto_solucoes.png" height="40" class="mr-2" />
+  </ng-template>
+  <ng-template pTemplate="end">
+    <p-avatar icon="pi pi-user" styleClass="mr-2" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" size="large" shape="circle"></p-avatar>
+    <strong>{{usernameAndToken?.username}}</strong>
+  </ng-template>
+</p-menubar>
+<router-outlet></router-outlet>

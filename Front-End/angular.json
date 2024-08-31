@@ -26,7 +26,6 @@
             ],
             "styles": [
               "node_modules/primeflex/primeflex.css",
-
               "node_modules/@nebular/theme/styles/prebuilt/default.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeflex/primeflex.css",

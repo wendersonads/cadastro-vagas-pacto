@@ -3,7 +3,7 @@ import localePt from '@angular/common/locales/pt';
 
 registerLocaleData(localePt);
 
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
@@ -37,9 +37,10 @@ import { ToastModule } from 'primeng/toast';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { PasswordModule } from 'primeng/password';
-
+import { MenubarModule } from 'primeng/menubar';
 import { LoginComponent } from './components/login/login.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
+import { AvatarModule } from 'primeng/avatar';
 
 registerLocaleData(localePt);
 @NgModule({
@@ -85,10 +86,13 @@ registerLocaleData(localePt);
     ToastModule,
     InputMaskModule,
     InputNumberModule,
-    PasswordModule
+    PasswordModule,
+    MenubarModule,
+    AvatarModule
   ],
   providers: [MessageService, DialogService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 
 
