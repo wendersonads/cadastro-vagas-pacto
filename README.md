@@ -13,8 +13,11 @@
 <p> Baixe os arquivos usando o comando git clone https://github.com/wendersonads/cadastro-vagas-pacto.git ou baixando diretamente o arquivo ZIP disponível no repositório.</p>
 <h4>BACK-END</h4>
 <ul>
-<li> Para executar a API abra a pasta Back-End em qualquer IDE com suporte  para executar JAVA/SPRINGBOOT ou editor de texto como VISUAL STUDIO CODE. <b>OBS: Banco de dados está sendo executado na núvem não havendo necessidade de configurar localmente, sendo assim as configurações estão sendo aplicadas no arquivo de configuração <strong>application.properties</strong></b>
+<li> Para executar a API abra a pasta Back-End em qualquer IDE com suporte  para executar JAVA/SPRINGBOOT ou editor de texto como VISUAL STUDIO CODE e execute a aplicação. <b>OBS: Banco de dados POSTGRESQL está sendo executado em uma VPS não havendo necessidade de configurar localmente, sendo assim as configurações estão sendo aplicadas no arquivo de configuração application.properties</b>
 </ul>
+<h4>FRONT-END</h4>
+
+
 
 
 
