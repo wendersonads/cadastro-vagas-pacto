@@ -42,14 +42,14 @@ public class PerfilUsuarioService {
         for (Object[] row : resultados) {
             if (nomeUsuario == null) {
                 nomeUsuario = (String) row[0]; 
-                idUsuario = (Long) row[1];
+                idUsuario = ((BigInteger) row[1]).longValue();
                 idPerfilUsuario = ((BigInteger) row[2]).longValue();
                 descricaoPerfil = (String) row[3]; 
             }
     
-            Integer idVaga = (Integer) row[3];
-            String descricaoVaga = (String) row[4];
-            String tituloVaga = (String) row[5];
+            Integer idVaga = (Integer) row[4];
+            String descricaoVaga = (String) row[5];
+            String tituloVaga = (String) row[6];
     
             vagas.add(new VagaDTO(idVaga, descricaoVaga, tituloVaga));
         }

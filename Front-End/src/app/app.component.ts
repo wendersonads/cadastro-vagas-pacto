@@ -9,6 +9,8 @@ import { VagasService } from "./service/vagas.service";
 import { Vagas } from "./models/vagas";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { CadastroVagaDialogComponent } from "./components/cadastro-vaga-dialog/cadastro-vaga-dialog.component";
+import { UserStorage } from "./models/user";
+import { HttpErrorResponse } from "@angular/common/http";
 
 
 @Component({
@@ -25,6 +27,7 @@ export class AppComponent implements OnInit, AfterViewInit{
   public vagas: Vagas[] = [];
   public admin: boolean = true;
   public ref!: DynamicDialogRef;
+  public userStorage: UserStorage | null = null;
 
   constructor(private utils: UtilsService, private router: Router,private cdr: ChangeDetectorRef, 
     private vagaService: VagasService,private dialogService: DialogService) {
@@ -65,6 +68,11 @@ export class AppComponent implements OnInit, AfterViewInit{
     this.utils.userData$.subscribe((userData) => {
       this.usernameAndToken = userData;
       this.vValidaMenu = this.usernameAndToken !== null && this.usernameAndToken.token !== null;
+      this.cdr.markForCheck();
+    });
+
+    this.utils.userStorage$.subscribe((userStorage) => {
+      this.userStorage = userStorage;
       this.cdr.markForCheck();
     });
 
@@ -122,5 +130,18 @@ export class AppComponent implements OnInit, AfterViewInit{
           this.listarVagas();
       }
     });
+  }
+
+  async candidatar(idVaga: number) {
+   const idCandidato = this.userStorage?.idUsuario ?? null;
+   console.log('ID VAGA: ', idVaga,'ID CANDIDATO: ', idCandidato);
+   if (idVaga !== null && idCandidato !== null) {
+     await this.vagaService.candidatarNaVaga(idVaga, idCandidato).then((retCadVaga: string) => {
+      console.log("RETORNO CAD VAGA: ", retCadVaga);
+      this.utils.messageSucess(retCadVaga);
+     }).catch((error: HttpErrorResponse) => {
+        this.utils.messageError(error);
+     })
+   }
   }
 }

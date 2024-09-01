@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Message, MessageService } from "primeng/api";
 import { KEY_TOKEN } from "src/app/models/keysStorage";
 import { Oauth } from "src/app/models/Oauth";
+import { UserStorage } from "src/app/models/user";
 import { OauthService } from "src/app/service/oauth.service";
 import { UtilsService } from "src/app/utils/utils.service";
 
@@ -37,6 +38,7 @@ export class LoginComponent {
           };
           this.utils.setUsernameAndToken(userData);
           this.route.navigate(["/"]);
+          this.buscarDadosUser(this.username);
         }
         this.loading = false;
       })
@@ -49,5 +51,15 @@ export class LoginComponent {
 
  public direcionarTelaCadastro() {
     this.route.navigate(["/cadastro"]);
+  }
+
+  private buscarDadosUser(username: string): void {
+    this.oAuth.buscarDadosUser(username).then((retUser: UserStorage | void) => {
+        if (retUser && "idUsuario" in retUser) {
+          this.utils.setDataUserStorage(retUser);
+        }
+    }).catch(error =>{
+      console.error("Erro ao buscar dados do usuário");
+    });
   }
 }

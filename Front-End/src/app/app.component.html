@@ -21,9 +21,9 @@
       <ng-template pTemplate="header">
           <tr>
               <th style="width:10%">Titulo</th>
-              <th style="width:75%">Descrição</th>
-              <th style="width:10%">Candidatos</th>
-              <th style="width:5%">Ações</th>
+              <th style="width:70%">Descrição</th>
+              <th style="width:5%">Candidatos</th>
+              <th style="width:15%; text-align: center">Ações</th>
           </tr>
       </ng-template>
       <ng-template pTemplate="body" let-vaga>
@@ -31,8 +31,8 @@
               <td>{{ vaga.tituloVaga }}</td>
               <td>{{ vaga.descricaoVaga }}</td>
               <td style="text-align: center;">{{ vaga.cadidatos.length }}</td>
-              <td>
-                <button *ngIf="admin" type="button" pButton pRipple icon="pi pi-user-plus" class="p-button-rounded p-button-text"></button>      
+              <td style="text-align: center;">
+                <button (click)="candidatar(vaga.idVaga)" *ngIf="admin" type="button" pButton  label="Candidate-se"  class="p-button-rounded p-button-text"></button>      
               </td>
           </tr>
       </ng-template>

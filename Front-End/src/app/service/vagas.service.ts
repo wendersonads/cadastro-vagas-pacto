@@ -39,4 +39,17 @@ export class VagasService {
      );
     });
   }
+
+  public candidatarNaVaga(idVaga: number, idCandidato: number): Promise<string> {
+    return new Promise<string>((resolve, reject)=> {
+      if (idCandidato !== null && idVaga !== null) {
+        this.http.post<string>(API_URL + `/api/vagas/cadastrar/${idVaga}/${idCandidato}`,null,{headers: this.utils.getHeaders()}).subscribe(
+          (retCad: string)=>{
+            resolve(retCad);
+        },(error: HttpErrorResponse) => {  
+          reject(error);
+        })
+      }
+    });
+  }
 }
