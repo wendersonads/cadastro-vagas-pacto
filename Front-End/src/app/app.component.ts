@@ -9,8 +9,11 @@ import { VagasService } from "./service/vagas.service";
 import { Vagas } from "./models/vagas";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { CadastroVagaDialogComponent } from "./components/cadastro-vaga-dialog/cadastro-vaga-dialog.component";
-import { UserStorage } from "./models/user";
+import { User, UserStorage } from "./models/user";
 import { HttpErrorResponse } from "@angular/common/http";
+import { CandidatosDialogComponent } from "./components/candidatos-dialog/candidatos-dialog.component";
+import { OauthService } from "./service/oauth.service";
+import { MinhasVagasComponent } from "./components/minhas-vagas/minhas-vagas.component";
 
 
 @Component({
@@ -28,36 +31,14 @@ export class AppComponent implements OnInit, AfterViewInit{
   public admin: boolean = true;
   public ref!: DynamicDialogRef;
   public userStorage: UserStorage | null = null;
-
+  public vagasUser: any[] = []; 
+  public loading = false;
   constructor(private utils: UtilsService, private router: Router,private cdr: ChangeDetectorRef, 
-    private vagaService: VagasService,private dialogService: DialogService) {
+    private vagaService: VagasService,private dialogService: DialogService, private oAuth: OauthService,) {
 
     this.vValidaMenu = true;
     this.usernameAndToken = utils.getUsernameAndToken();
-    this.admin = true;
     this.items = [
-      {
-        label: "Vagas",
-        icon: "pi pi-fw pi-file",
-        items: [
-          {
-            label: "Nova Vaga",
-            icon: "pi pi-fw pi-plus",
-          },
-          {
-            label: "Lista Vagas",
-            icon: "pi pi-list",
-          },
-          {
-            label: "Minhas Vagas",
-            icon: "pi pi-list",
-          },
-        ],
-      },
-      {
-        label: "Candidatos",
-        icon: "pi pi-users",
-      },
       {
         label: "Sair",
         icon: "pi pi-fw pi-power-off",
@@ -73,6 +54,7 @@ export class AppComponent implements OnInit, AfterViewInit{
 
     this.utils.userStorage$.subscribe((userStorage) => {
       this.userStorage = userStorage;
+      this.validaAdmin();
       this.cdr.markForCheck();
     });
 
@@ -134,14 +116,67 @@ export class AppComponent implements OnInit, AfterViewInit{
 
   async candidatar(idVaga: number) {
    const idCandidato = this.userStorage?.idUsuario ?? null;
-   console.log('ID VAGA: ', idVaga,'ID CANDIDATO: ', idCandidato);
    if (idVaga !== null && idCandidato !== null) {
      await this.vagaService.candidatarNaVaga(idVaga, idCandidato).then((retCadVaga: string) => {
-      console.log("RETORNO CAD VAGA: ", retCadVaga);
       this.utils.messageSucess(retCadVaga);
+      this.listarVagas();
      }).catch((error: HttpErrorResponse) => {
-        this.utils.messageError(error);
+        this.utils.messageErrorCantidatarVaga(error);
      })
    }
+  }
+
+  private validaAdmin() : void {
+    if (this.userStorage !== null && this.userStorage.idPerfilUsuario !== null) {
+      this.admin = this.userStorage.idPerfilUsuario === 1; //Perfil 1 Admin
+    }
+  }
+
+  openCandidatosDialog(candidatos: any[]) {
+    console.log('CANDIDATOS:',candidatos);
+    if (candidatos) {
+      this.ref = this.dialogService.open(CandidatosDialogComponent, {
+        header: 'Candidatos',
+        width: '400px',
+        data: {
+          candidatos: candidatos
+        }
+      });
+    }
+  }
+  private async buscarDadosUser(): Promise<void> {
+    const username = this.usernameAndToken?.username ?? '';
+    this.oAuth.buscarDadosUser(username).then((retUser: User | void) => {
+        if (retUser && "idUsuario" in retUser) {
+          this.vagasUser = retUser.vagas;
+          this.utils.setDataUserStorage(retUser);
+        }
+    }).catch(error =>{
+      console.error("Erro ao buscar dados do usuário");
+    });
+  }
+
+  async openVagasDialog() {    
+    try {
+      await this.buscarDadosUser().then(retUser => {
+        if (this.vagasUser) {
+          setTimeout(() => {
+            this.ref = this.dialogService.open(MinhasVagasComponent, {
+              header: 'Minhas Vagas',
+              width: '400px',
+              data: {
+                vagas: this.vagasUser
+              }
+            });
+            this.ref.onClose.subscribe(() => {
+              this.loading = false;
+            });
+          }, 1000); 
+        }
+      });
+    } catch (error) {
+      console.error('Erro ao buscar dados do usuário:', error);
+      this.loading = false; 
+    }
   }
 }

@@ -42,6 +42,8 @@ import { LoginComponent } from './components/login/login.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { AvatarModule } from 'primeng/avatar';
 import { CadastroVagaDialogComponent } from './components/cadastro-vaga-dialog/cadastro-vaga-dialog.component';
+import { CandidatosDialogComponent } from './components/candidatos-dialog/candidatos-dialog.component';
+import { MinhasVagasComponent } from './components/minhas-vagas/minhas-vagas.component';
 
 registerLocaleData(localePt);
 @NgModule({
@@ -49,7 +51,9 @@ registerLocaleData(localePt);
     AppComponent,
     LoginComponent,
     CadastroComponent,
-    CadastroVagaDialogComponent
+    CadastroVagaDialogComponent,
+    CandidatosDialogComponent,
+    MinhasVagasComponent
 
   ],
   imports: [

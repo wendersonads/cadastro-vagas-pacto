@@ -8,7 +8,8 @@
   </ng-template>
 </p-menubar>
 <div class="card" *ngIf="vValidaMenu">
-  <p-button styleClass="p-button-raised p-button-success btn-cadastrar" class="btn-cadastrar" (click)="openCadastroDialog()" icon="pi pi-plus" label="Cadastrar Vaga"></p-button>
+  <p-button *ngIf="admin" styleClass="p-button-raised p-button-success btn-cadastrar" class="btn-cadastrar" (click)="openCadastroDialog()" icon="pi pi-plus" label="Cadastrar Vaga"></p-button>
+  <p-button *ngIf="!admin"styleClass="p-button-raised p-button-success btn-cadastrar" [loading]="loading"class="btn-cadastrar" (click)="openVagasDialog()" icon="pi pi-eye" label="Minhas Vagas"></p-button>
   <p-table
       [value]="vagas"
       [paginator]="true"
@@ -31,8 +32,11 @@
               <td>{{ vaga.tituloVaga }}</td>
               <td>{{ vaga.descricaoVaga }}</td>
               <td style="text-align: center;">{{ vaga.cadidatos.length }}</td>
-              <td style="text-align: center;">
-                <button (click)="candidatar(vaga.idVaga)" *ngIf="admin" type="button" pButton  label="Candidate-se"  class="p-button-rounded p-button-text"></button>      
+              <td *ngIf="!admin" style="text-align: center;">
+                <button (click)="candidatar(vaga.idVaga)" type="button" pButton  label="Candidate-se"  class="p-button-rounded p-button-text"></button>      
+              </td>
+              <td *ngIf="admin" style="text-align: center;">
+                <button  type="button" pButton  label="Candidatos"  (click)="openCandidatosDialog(vaga.cadidatos)" class="p-button-rounded p-button-text"></button>      
               </td>
           </tr>
       </ng-template>

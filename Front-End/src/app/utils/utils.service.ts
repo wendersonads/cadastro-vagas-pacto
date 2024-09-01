@@ -28,6 +28,31 @@ export class UtilsService {
     }
   }
 
+  public async messageErrorCantidatarVaga(errorApi?: HttpErrorResponse) {
+    if (errorApi) {
+      let errorMessage = 'Erro desconhecido';
+      
+      if (typeof errorApi.error === 'string') {
+        try {
+          const errorObj = JSON.parse(errorApi.error);
+          errorMessage = errorObj.message || errorApi.message || errorMessage;
+        } catch (e) {
+          errorMessage = errorApi.error;
+        }
+      } else if (errorApi.error?.message) {
+        errorMessage = errorApi.error.message;
+      } else {
+        errorMessage = errorApi.message || errorMessage;
+      }
+      this.messageService.add({
+        severity: "error",
+        detail: errorMessage,
+        life: 2000,
+      });
+    }
+  }
+
+
   public async messageErrorGeneric(error: string) {
     if (error) {
       this.messageService.add({

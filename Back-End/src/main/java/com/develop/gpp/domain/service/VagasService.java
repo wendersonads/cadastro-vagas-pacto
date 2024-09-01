@@ -94,10 +94,11 @@ public class VagasService {
             account.getVagas().add(vaga);
             accountRepository.save(account);
 
-            return new ResponseEntity<>("Cadastrado realizado com sucesso!", HttpStatus.OK);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Conta ou Vaga não encontrada!");
         }
+
+        return new ResponseEntity<>("Cadastrado realizado com sucesso!", HttpStatus.OK);
     }
 
     public List<VagaAccountDTO> getVagasComCandidatos() {
