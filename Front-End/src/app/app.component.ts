@@ -7,6 +7,8 @@ import { ChangeDetectorRef } from '@angular/core';
 import { KEY_TOKEN } from "./models/keysStorage";
 import { VagasService } from "./service/vagas.service";
 import { Vagas } from "./models/vagas";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { CadastroVagaDialogComponent } from "./components/cadastro-vaga-dialog/cadastro-vaga-dialog.component";
 
 
 @Component({
@@ -22,9 +24,11 @@ export class AppComponent implements OnInit, AfterViewInit{
   public vValidaMenu: boolean;
   public vagas: Vagas[] = [];
   public admin: boolean = true;
-  
+  public ref!: DynamicDialogRef;
 
-  constructor(private utils: UtilsService, private router: Router,private cdr: ChangeDetectorRef, private vagasService: VagasService) {
+  constructor(private utils: UtilsService, private router: Router,private cdr: ChangeDetectorRef, 
+    private vagaService: VagasService,private dialogService: DialogService) {
+
     this.vValidaMenu = true;
     this.usernameAndToken = utils.getUsernameAndToken();
     this.admin = true;
@@ -70,6 +74,9 @@ export class AppComponent implements OnInit, AfterViewInit{
         if (url.includes('/login') || url.includes('/cadastro')) {
           this.vValidaMenu = false;
           this.cdr.markForCheck();
+        }else {
+          this.listarVagas();
+          this.cdr.markForCheck();
         }
       }
     });
@@ -93,7 +100,7 @@ export class AppComponent implements OnInit, AfterViewInit{
 
   public async listarVagas(): Promise<void>{
     try {
-      const vagasService = await this.vagasService.listarVagas();
+      const vagasService = await this.vagaService.listarVagas();
       if (vagasService !== undefined) {
         this.vagas = vagasService;
         this.cdr.detectChanges(); 
@@ -101,5 +108,19 @@ export class AppComponent implements OnInit, AfterViewInit{
     } catch (error) {
       console.error("Erro ao listar vagas: ", error);
     }
+  }
+
+  openCadastroDialog() {
+    this.ref = this.dialogService.open(CadastroVagaDialogComponent, {
+      header: 'Cadastrar Nova Vaga',
+      width: '30rem',
+      height: '50%'
+    });
+
+    this.ref.onClose.subscribe((data: any) => {
+      if (data) {
+          this.listarVagas();
+      }
+    });
   }
 }

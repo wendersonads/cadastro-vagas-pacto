@@ -41,13 +41,15 @@ import { MenubarModule } from 'primeng/menubar';
 import { LoginComponent } from './components/login/login.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { AvatarModule } from 'primeng/avatar';
+import { CadastroVagaDialogComponent } from './components/cadastro-vaga-dialog/cadastro-vaga-dialog.component';
 
 registerLocaleData(localePt);
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    CadastroComponent
+    CadastroComponent,
+    CadastroVagaDialogComponent
 
   ],
   imports: [

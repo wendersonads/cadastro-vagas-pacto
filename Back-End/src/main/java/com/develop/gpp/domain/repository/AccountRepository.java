@@ -16,7 +16,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     Optional<Account> findByUsername(String username);
 
-    @Query(value = "SELECT A.NAME AS NOME_USUARIO, PF.ID_PERFIL_USUARIO, PF.DESCRICAO AS DESCRICAO_PERFIL, "
+    @Query(value = "SELECT A.NAME AS NOME_USUARIO, A.ID AS ID_USUARIO, PF.ID_PERFIL_USUARIO, PF.DESCRICAO AS DESCRICAO_PERFIL, "
                  + "V.ID AS ID_VAGA, V.DESCRICAO AS DESCRICAO_VAGA, V.TITULO AS TITULO_VAGA "   
                  + "FROM ACCOUNT A "
                  + "LEFT JOIN PERFIL_USUARIO PF ON PF.ID_PERFIL_USUARIO = A.ID_PERFIL_USUARIO "

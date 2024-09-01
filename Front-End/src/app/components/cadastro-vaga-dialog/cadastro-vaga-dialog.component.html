@@ -1,0 +1,17 @@
+<div class="dialog-content">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <span class="p-float-label">
+            <input for="tituloVaga" pInputText id="tituloVaga" formControlName="tituloVaga"/>
+            <label htmlFor="tituloVaga">Título</label>
+        </span>
+        <span class="p-float-label">
+            <textarea pInputText id="descricaoVaga" formControlName="descricaoVaga"></textarea>
+            <label htmlFor="descricaoVaga">Descrição</label>
+        </span>
+      <div class="button-group">
+        <p-button (click)="onSubmit()" label="Cadastrar" styleClass="p-button-raised p-button-success"></p-button>
+        <p-button (click)="onCancelar()" label="Cancelar" styleClass="p-button-raised p-button-danger"></p-button>
+      </div>
+    </form>
+  </div>
+  

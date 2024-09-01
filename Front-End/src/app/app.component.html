@@ -7,8 +7,8 @@
     <!-- <strong styleClass="mr-2">{{usernameAndToken?.username}}</strong> -->
   </ng-template>
 </p-menubar>
-<div class="card">
-  <button class="btn-cadastrar" pButton pRipple icon="pi pi-plus" label="Cadastrar Vaga"></button>
+<div class="card" *ngIf="vValidaMenu">
+  <p-button styleClass="p-button-raised p-button-success btn-cadastrar" class="btn-cadastrar" (click)="openCadastroDialog()" icon="pi pi-plus" label="Cadastrar Vaga"></p-button>
   <p-table
       [value]="vagas"
       [paginator]="true"
@@ -38,6 +38,6 @@
       </ng-template>
   </p-table>
 </div>
-
+<p-toast *ngIf="vValidaMenu"></p-toast>
 
 <router-outlet></router-outlet>

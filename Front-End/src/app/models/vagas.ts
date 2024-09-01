@@ -5,6 +5,12 @@ export interface Vagas {
   candidatos?: Candidato[];
 }
 
+export interface NovaVaga {
+   id?: number;
+   titulo: string;
+   descricao: string; 
+}
+
 export interface Candidato {
  nomeUsuario: string;
 }

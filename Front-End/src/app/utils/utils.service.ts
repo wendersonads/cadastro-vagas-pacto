@@ -25,6 +25,16 @@ export class UtilsService {
     }
   }
 
+  public async messageErrorGeneric(error: string) {
+    if (error) {
+      this.messageService.add({
+        severity: "error",
+        detail: error,
+        life: 2000,
+      });
+    }
+  }
+
   public async messageSucess(success?: string) {
     if (success) {
       this.messageService.add({

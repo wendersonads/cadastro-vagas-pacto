@@ -36,13 +36,15 @@ public class PerfilUsuarioService {
         String nomeUsuario = null;
         Long idPerfilUsuario = null;
         String descricaoPerfil = null;
+        Long idUsuario = null;
         List<VagaDTO> vagas = new ArrayList<>();
     
         for (Object[] row : resultados) {
             if (nomeUsuario == null) {
                 nomeUsuario = (String) row[0]; 
-                idPerfilUsuario = ((BigInteger) row[1]).longValue();
-                descricaoPerfil = (String) row[2]; 
+                idUsuario = (Long) row[1];
+                idPerfilUsuario = ((BigInteger) row[2]).longValue();
+                descricaoPerfil = (String) row[3]; 
             }
     
             Integer idVaga = (Integer) row[3];
@@ -52,7 +54,7 @@ public class PerfilUsuarioService {
             vagas.add(new VagaDTO(idVaga, descricaoVaga, tituloVaga));
         }
     
-        return new AccountDTO(nomeUsuario, idPerfilUsuario, descricaoPerfil, vagas);
+        return new AccountDTO(nomeUsuario, idPerfilUsuario, descricaoPerfil, vagas, idUsuario);
     }
 
     public Account vincularPerfil(LoginDTO dto, Long id) {

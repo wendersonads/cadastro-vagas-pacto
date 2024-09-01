@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { UtilsService } from "../utils/utils.service";
-import { Vagas } from "../models/vagas";
+import { NovaVaga, Vagas } from "../models/vagas";
 import { API_URL } from "../app.config";
 
 @Injectable({
@@ -23,6 +23,20 @@ export class VagasService {
             reject(undefined);
           }
         );
+    });
+  }
+
+  public novaVaga(novaVaga: NovaVaga): Promise<NovaVaga | void> {
+    return new Promise<NovaVaga |void>((resolve, reject) => {
+      this.http.post<NovaVaga>(API_URL + "/api/vagas", novaVaga, {headers: this.utils.getHeaders()}).subscribe(
+        (vaga: NovaVaga) => {
+         if (vaga) {
+           resolve(vaga);
+         }
+        },error => {
+          reject(error);
+      }
+     );
     });
   }
 }
