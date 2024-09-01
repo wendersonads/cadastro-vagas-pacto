@@ -16,6 +16,8 @@
 <li> Para executar a API abra a pasta Back-End em qualquer IDE com suporte  para executar JAVA/SPRINGBOOT ou editor de texto como VISUAL STUDIO CODE e execute a aplicação. <b>OBS: Banco de dados POSTGRESQL está sendo executado em uma VPS não havendo necessidade de configurar localmente, sendo assim as configurações estão sendo aplicadas no arquivo de configuração application.properties</b>
 </ul>
 <h4>FRONT-END</h4>
+<li> Para executar o FRONT abra a pasta Front-End em qualquer editor de texto como VISUAL STUDIO CODE ou qualquer um de preferência, execute o comando <b>npm install --force</b> e em seguida <b>ng serve</b> <b>ou ng serve --port "numero da porta"</b> caso a porta 4200 esteja em uso. <b> OBS: O comando deve ser npm install --force devido o projeto estar dando conflito entre versões das dependências</b>
+</ul>
 
 
 
