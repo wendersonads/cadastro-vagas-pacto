@@ -19,6 +19,19 @@
 <ul>
 <li> Para executar o FRONT abra a pasta Front-End em qualquer editor de texto como VISUAL STUDIO CODE ou qualquer um de preferência, execute o comando <b>npm install --force</b> e em seguida <b>ng serve</b> <b>ou ng serve --port "numero da porta"</b> caso a porta 4200 esteja em uso. <b> OBS: O comando deve ser npm install --force devido o projeto estar dando conflito entre versões das dependências</b>
 </ul>
+<h2>Explicando o Sistema</h2>
+<p>O Sistema foi desenvolvido para dois perfis de acesso sendo <b> 1-Admnistrador e 2-Candidato</b></p>
+<ul>
+<li><b>Perfil Admin: </b> O perfil de administrador é o perfil de acesso configurado para o usuário cadastrar novas vagas e visualizar os candidatos que se candidataram as vagas, <b>Para o acesso use USUÁRIO: Admin e SENHA: admin</b></li>
+<p>EXEMPLO: </p>
+<div>
+    <img src="images/cadastroVaga.png" alt="" />
+</div>
+<div>
+    <img src="images/candidatosVagas.png" alt="" />
+</div>
+</ul>
+
 
 
 
