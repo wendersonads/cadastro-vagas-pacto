@@ -39,6 +39,25 @@
     <img src="images/minhasVagas.png" alt="" />
 </div>
 </ul>
+<h2>Página principal Front-End</h2>
+<p>Ao fazer o acesso após o login deve-se atualizar a página manualmente para carregar o componente table corretamente, inicialmente será carregada com dados porém por um erro no comenponente mostra em tamanho reduzido, correção estará disponível na próxima versão.</p>
+<p>EXEMPLO: </p>
+<div>
+    <img src="images/telaPrincErro.png" alt="" />
+</div>
+<p>APÓS RECARREGAR: </p>
+<div>
+    <img src="images/telaPrincOk.png" alt="" />
+</div>
+<h2>Considerações finais</h2>
+<p>Alguns dados estão sendo armazenados no localStorage como Token e dados do usuário, sendo possível visualizar na aba inspecionar do navegador. As requisições na api estão sendo validadas, ou seja, a API esta bloqueando requisição que não contém token no Header, todos os métodos e relacionamentos entre classes estão disponíveis na pasta Back-End. Telas adaptadas as telas de dispositivos móveis conforme solicitado no documento de requisítos</p>
+<p>EXEMPLO: </p>
+<div>
+    <img src="images/mobileEx.png" alt="" />
+</div>
+
+
+
 
 
 
