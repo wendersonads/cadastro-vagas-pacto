@@ -22,7 +22,7 @@
 <h2>Explicando o Sistema</h2>
 <p>O Sistema foi desenvolvido para dois perfis de acesso sendo <b> 1-Admnistrador e 2-Candidato</b></p>
 <ul>
-<li><b>Perfil Admin: </b> O perfil de administrador é o perfil de acesso configurado para o usuário cadastrar novas vagas e visualizar os candidatos que se candidataram as vagas, <b>Para o acesso use USUÁRIO: Admin e SENHA: admin</b></li>
+<li><b>Perfil Administrador: </b> O perfil de administrador é o perfil de acesso configurado para o usuário cadastrar novas vagas e visualizar os candidatos que se candidataram as vagas, <b>Para o acesso use USUÁRIO: Admin e SENHA: admin</b></li>
 <p>EXEMPLO: </p>
 <div>
     <img src="images/cadastroVaga.png" alt="" />
@@ -30,7 +30,16 @@
 <div>
     <img src="images/candidatosVagas.png" alt="" />
 </div>
+<li><b>Perfil Candidato: </b> O perfil de candidato é o perfil de acesso configurado para o usuário se candidatar a novas vagas e visualizar as vagas na qual candidatou-se <b>Para o acesso crie um novo cadastro, novos cadastros já estão configurados para receber o perfil de candidato</b></li>
+<p>EXEMPLO: </p>
+<div>
+    <img src="images/candidaturaVaga.png" alt="" />
+</div>
+<div>
+    <img src="images/minhasVagas.png" alt="" />
+</div>
 </ul>
+
 
 
 
