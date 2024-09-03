@@ -7,7 +7,7 @@
     <!-- <strong styleClass="mr-2">{{usernameAndToken?.username}}</strong> -->
   </ng-template>
 </p-menubar>
-<div class="card" *ngIf="vValidaMenu">
+<div  *ngIf="vValidaMenu">
   <p-button *ngIf="admin" styleClass="p-button-raised p-button-success btn-cadastrar" class="btn-cadastrar" (click)="openCadastroDialog()" icon="pi pi-plus" label="Cadastrar Vaga"></p-button>
   <p-button *ngIf="!admin"styleClass="p-button-raised p-button-success btn-cadastrar" [loading]="loading"class="btn-cadastrar" (click)="openVagasDialog()" icon="pi pi-eye" label="Minhas Vagas"></p-button>
   <p-table
