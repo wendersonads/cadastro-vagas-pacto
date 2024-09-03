@@ -14,6 +14,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { CandidatosDialogComponent } from "./components/candidatos-dialog/candidatos-dialog.component";
 import { OauthService } from "./service/oauth.service";
 import { MinhasVagasComponent } from "./components/minhas-vagas/minhas-vagas.component";
+import { filter } from "rxjs";
 
 
 @Component({
@@ -24,17 +25,19 @@ import { MinhasVagasComponent } from "./components/minhas-vagas/minhas-vagas.com
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements OnInit, AfterViewInit{
+
   items: MenuItem[] = [];
   public usernameAndToken: Token | null = null;
   public vValidaMenu: boolean;
   public vagas: Vagas[] = [];
-  public admin: boolean = true;
+  public admin: boolean = false;
   public ref!: DynamicDialogRef;
   public userStorage: UserStorage | null = null;
   public vagasUser: any[] = []; 
   public loading = false;
+
   constructor(private utils: UtilsService, private router: Router,private cdr: ChangeDetectorRef, 
-    private vagaService: VagasService,private dialogService: DialogService, private oAuth: OauthService,) {
+    private vagaService: VagasService,private dialogService: DialogService, private oAuth: OauthService) {
 
     this.vValidaMenu = true;
     this.usernameAndToken = utils.getUsernameAndToken();
@@ -49,12 +52,7 @@ export class AppComponent implements OnInit, AfterViewInit{
     this.utils.userData$.subscribe((userData) => {
       this.usernameAndToken = userData;
       this.vValidaMenu = this.usernameAndToken !== null && this.usernameAndToken.token !== null;
-      this.cdr.markForCheck();
-    });
-
-    this.utils.userStorage$.subscribe((userStorage) => {
-      this.userStorage = userStorage;
-      this.validaAdmin();
+      this.admin = this.usernameAndToken !== null ? this.usernameAndToken.idPerfilUsuario === 1 : false; 
       this.cdr.markForCheck();
     });
 
@@ -69,7 +67,19 @@ export class AppComponent implements OnInit, AfterViewInit{
           this.cdr.markForCheck();
         }
       }
+      this.utils.userStorage$.subscribe((userStorage) => {
+        this.userStorage = userStorage;
+        // this.validaAdmin();
+        this.cdr.markForCheck();
+      });
     });
+
+    this.utils.userStorage$.subscribe((userStorage) => {
+      this.userStorage = userStorage;
+      // this.validaAdmin();
+      this.cdr.markForCheck();
+    });
+
      const vValidaToken = this.usernameAndToken !== null ? 
          this.usernameAndToken.token !== null && this.usernameAndToken.token !== '' : false;
     if (!vValidaToken) {
@@ -79,9 +89,10 @@ export class AppComponent implements OnInit, AfterViewInit{
   async ngAfterViewInit(): Promise<void> {
     await this.listarVagas();
   }
-  ngOnInit() {
 
+  ngOnInit() {
   }
+
 
   public sair() {
     localStorage.removeItem(KEY_TOKEN);
@@ -129,6 +140,7 @@ export class AppComponent implements OnInit, AfterViewInit{
   private validaAdmin() : void {
     if (this.userStorage !== null && this.userStorage.idPerfilUsuario !== null) {
       this.admin = this.userStorage.idPerfilUsuario === 1; //Perfil 1 Admin
+      this.cdr.markForCheck();
     }
   }
 

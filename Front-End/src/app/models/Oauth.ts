@@ -7,4 +7,9 @@ export interface Oauth {
 export interface Token {
  username?: string;
  token?: string;
+ idPerfilUsuario: number;  
+}
+
+export interface PerfilUser {
+  idPerfilUsuario: number;  
 }

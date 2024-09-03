@@ -13,10 +13,18 @@ export class UtilsService {
   public usernameAndToken: Token | null = null;
   private userDataSubject = new BehaviorSubject<Token | null>(this.getUsernameAndToken());
   private userStorage = new BehaviorSubject<UserStorage | null>(this.getDataUserStorage());
-
+  public vValidaAdmin: boolean = false;
   public userData$ = this.userDataSubject.asObservable();
   public userStorage$ = this.userStorage.asObservable();
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService) {
+    this.userStorage$.subscribe((userStorage) => {
+      if (userStorage !== null) {
+         if (userStorage.idPerfilUsuario === 1) {
+          this.vValidaAdmin = true;
+         }
+      };
+    });
+  }
 
   public async messageError(errorApi?: HttpErrorResponse) {
     if (errorApi) {

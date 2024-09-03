@@ -35,6 +35,7 @@ export class LoginComponent {
           const userData = {
             username: this.username,
             token: dadosUser.token,
+            idPerfilUsuario: dadosUser.idPerfilUsuario
           };
           this.utils.setUsernameAndToken(userData);
           this.route.navigate(["/"]);
