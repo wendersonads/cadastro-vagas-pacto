@@ -26,6 +26,8 @@ public class Token {
     private String token;
 
     private Long idPerfilUsuario;
+
+    private Long idUsuario;
     
     @JsonIgnore
     private LocalDateTime valid;

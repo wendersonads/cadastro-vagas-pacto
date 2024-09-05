@@ -1,12 +1,18 @@
-<p-menubar *ngIf="vValidaMenu" [model]="items" [style]="{'background-color':'#ffffff'}">
+<p-menubar *ngIf="vValidaMenu" [style]="{'background-color':'#ffffff'}">
   <ng-template pTemplate="start">
       <img src="assets/logo_pacto_solucoes.png" class="mr-2 img-menu" />
   </ng-template>
-  <ng-template pTemplate="end">
-    <p-avatar icon="pi pi-user" styleClass="mr-2" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" size="large" shape="circle"></p-avatar>
-    <!-- <strong styleClass="mr-2">{{usernameAndToken?.username}}</strong> -->
+  <ng-template pTemplate="end" >
+    <!-- <p-button icon="pi pi-check" styleClass="p-button-outlined" [disabled]="true" [style]="{'width': 'auto', 'white-space': 'nowrap'}">
+      <span class="ml-2 font-bold">{{usernameAndToken?.username}}</span>
+    </p-button> -->
+    <!-- <p-avatar styleClass="mr-2" [style]="{'background-color':'#2196F3', 'color': '#ffffff', 'width': 'auto', 'white-space': 'nowrap'}">
+      <span class="ml-2 font-bold">{{usernameAndToken?.username}}</span>
+    </p-avatar> -->
+    <p-button class="ml-2 font-bold" icon="pi pi-sign-out" (onClick)="sair()" styleClass="p-button-danger">Sair</p-button>
   </ng-template>
 </p-menubar>
+
 <div  *ngIf="vValidaMenu">
   <p-button *ngIf="admin" styleClass="p-button-raised p-button-success btn-cadastrar" class="btn-cadastrar" (click)="openCadastroDialog()" icon="pi pi-plus" label="Cadastrar Vaga"></p-button>
   <p-button *ngIf="!admin"styleClass="p-button-raised p-button-success btn-cadastrar" [loading]="loading"class="btn-cadastrar" (click)="openVagasDialog()" icon="pi pi-eye" label="Minhas Vagas"></p-button>

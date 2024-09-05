@@ -47,6 +47,10 @@ export class OauthService {
         (retUser: User) =>{
           resolve(retUser);
         },error =>{
+        //   if (error.status === 401) {
+        //     this.utils.messageErrorGeneric('Token expirado, necessário logar novamente.')
+        //     this.utils.redirecionarLogin();
+        //  }
           reject(error);
         });
     });

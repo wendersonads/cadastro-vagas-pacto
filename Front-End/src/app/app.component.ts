@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, AfterViewInit{
   public userStorage: UserStorage | null = null;
   public vagasUser: any[] = []; 
   public loading = false;
-
+  public idUsuario: number | null = null;
   constructor(private utils: UtilsService, private router: Router,private cdr: ChangeDetectorRef, 
     private vagaService: VagasService,private dialogService: DialogService, private oAuth: OauthService) {
 
@@ -53,6 +53,8 @@ export class AppComponent implements OnInit, AfterViewInit{
       this.usernameAndToken = userData;
       this.vValidaMenu = this.usernameAndToken !== null && this.usernameAndToken.token !== null;
       this.admin = this.usernameAndToken !== null ? this.usernameAndToken.idPerfilUsuario === 1 : false; 
+      this.idUsuario = this.usernameAndToken !== null && this.usernameAndToken?.idUsuario !== null 
+                             ? this.usernameAndToken?.idUsuario : null;
       this.cdr.markForCheck();
     });
 
@@ -126,7 +128,7 @@ export class AppComponent implements OnInit, AfterViewInit{
   }
 
   async candidatar(idVaga: number) {
-   const idCandidato = this.userStorage?.idUsuario ?? null;
+   const idCandidato = this.idUsuario;
    if (idVaga !== null && idCandidato !== null) {
      await this.vagaService.candidatarNaVaga(idVaga, idCandidato).then((retCadVaga: string) => {
       this.utils.messageSucess(retCadVaga);

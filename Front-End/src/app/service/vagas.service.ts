@@ -20,6 +20,10 @@ export class VagasService {
             }
           },
           (error) => {
+            if (error.status === 401) {
+               this.utils.redirecionarLogin();
+               this.utils.messageErrorGeneric('Token expirado, necessário logar novamente.')
+            }
             reject(undefined);
           }
         );
@@ -34,6 +38,10 @@ export class VagasService {
            resolve(vaga);
          }
         },error => {
+          if (error.status === 401) {
+            this.utils.redirecionarLogin();
+            this.utils.messageErrorGeneric('Token expirado, necessário logar novamente.')
+         }
           reject(error);
       }
      );
@@ -47,6 +55,10 @@ export class VagasService {
           (retCad: string)=>{
             resolve(retCad);
         },(error: HttpErrorResponse) => { 
+          if (error.status === 401) {
+            this.utils.redirecionarLogin();
+            this.utils.messageErrorGeneric('Token expirado, necessário logar novamente.')
+         }
           reject(error);
         })
       }

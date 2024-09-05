@@ -5,6 +5,7 @@ import { Token } from "../models/Oauth";
 import { KEY_TOKEN, KEY_USER } from "../models/keysStorage";
 import { BehaviorSubject } from "rxjs";
 import { UserStorage } from "../models/user";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root",
@@ -16,7 +17,7 @@ export class UtilsService {
   public vValidaAdmin: boolean = false;
   public userData$ = this.userDataSubject.asObservable();
   public userStorage$ = this.userStorage.asObservable();
-  constructor(private messageService: MessageService) {
+  constructor(private messageService: MessageService, private router: Router) {
     this.userStorage$.subscribe((userStorage) => {
       if (userStorage !== null) {
          if (userStorage.idPerfilUsuario === 1) {
@@ -122,5 +123,10 @@ export class UtilsService {
     }
 
     return headers;
+  }
+
+  public redirecionarLogin(): void {
+    localStorage.removeItem(KEY_TOKEN);
+    this.router.navigate(["/login"]);
   }
 }
