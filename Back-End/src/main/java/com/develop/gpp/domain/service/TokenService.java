@@ -3,6 +3,8 @@ package com.develop.gpp.domain.service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,7 +18,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TokenService {
     
+    @Autowired
     private final TokenRepository repository;
+
+    @Autowired
     private final AccountService accountService;
 
     public Token login(LoginDTO dto) {
@@ -26,6 +31,7 @@ public class TokenService {
         token.setToken(UUID.randomUUID().toString());
         token.setValid(LocalDateTime.now().plusMinutes(36000));
         token.setIdPerfilUsuario(account.getPerfilUsuario().getIdPerfilUsuario());
+        token.setIdUsuario(account.getId());
         return repository.save(token);
     }
 
